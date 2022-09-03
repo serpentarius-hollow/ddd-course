@@ -19,7 +19,11 @@ abstract class ValueObject<T> {
       );
 
   @override
-  bool operator ==(covariant ValueObject other) => value == other.value;
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ValueObject &&
+          runtimeType == other.runtimeType &&
+          value == other.value;
 
   @override
   int get hashCode => value.hashCode;
