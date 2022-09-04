@@ -26,7 +26,8 @@ _$_NoteDto _$$_NoteDtoFromJson(Map<String, dynamic> json) => _$_NoteDto(
       todos: (json['todos'] as List<dynamic>)
           .map((e) => TodoItemDto.fromJson(e as Map<String, dynamic>))
           .toList(),
-      timeStamp: json['timeStamp'] as String,
+      timeStamp:
+          const TimestampConverter().fromJson(json['timeStamp'] as Timestamp),
     );
 
 Map<String, dynamic> _$$_NoteDtoToJson(_$_NoteDto instance) =>
@@ -34,5 +35,5 @@ Map<String, dynamic> _$$_NoteDtoToJson(_$_NoteDto instance) =>
       'body': instance.body,
       'color': instance.color,
       'todos': instance.todos,
-      'timeStamp': instance.timeStamp,
+      'timeStamp': const TimestampConverter().toJson(instance.timeStamp),
     };

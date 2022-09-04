@@ -51,7 +51,7 @@ class NoteDto with _$NoteDto {
     required String body,
     required int color,
     required List<TodoItemDto> todos,
-    required String timeStamp,
+    @TimestampConverter() required String timeStamp,
   }) = _NoteDto;
 
   factory NoteDto.fromDomain(Note note) {
@@ -84,4 +84,16 @@ class NoteDto with _$NoteDto {
     return NoteDto.fromJson(doc.data() as Map<String, dynamic>)
         .copyWith(id: doc.id);
   }
+}
+
+class TimestampConverter implements JsonConverter<String, Timestamp> {
+  const TimestampConverter();
+
+  @override
+  String fromJson(Timestamp timestamp) {
+    return timestamp.toDate().toIso8601String();
+  }
+
+  @override
+  Timestamp toJson(String date) => Timestamp.fromDate(DateTime.parse(date));
 }

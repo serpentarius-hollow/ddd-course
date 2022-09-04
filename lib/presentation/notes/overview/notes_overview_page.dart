@@ -8,6 +8,7 @@ import '../../../application/notes/actor/notes_actor_bloc.dart';
 import '../../../application/notes/watcher/notes_watcher_bloc.dart';
 import '../../../injection.dart';
 import '../../routes/router.gr.dart';
+import 'widgets/notes_overview_body.dart';
 
 class NotesOverviewPage extends StatelessWidget {
   const NotesOverviewPage({super.key});
@@ -77,6 +78,7 @@ class NotesOverviewPage extends StatelessWidget {
             },
             child: const Icon(Icons.add),
           ),
+          body: const NotesOverviewBody(),
         ),
       ),
     );

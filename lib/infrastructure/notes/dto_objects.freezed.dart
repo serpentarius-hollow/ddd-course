@@ -198,6 +198,7 @@ mixin _$NoteDto {
   String get body => throw _privateConstructorUsedError;
   int get color => throw _privateConstructorUsedError;
   List<TodoItemDto> get todos => throw _privateConstructorUsedError;
+  @TimestampConverter()
   String get timeStamp => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -214,7 +215,7 @@ abstract class $NoteDtoCopyWith<$Res> {
       String body,
       int color,
       List<TodoItemDto> todos,
-      String timeStamp});
+      @TimestampConverter() String timeStamp});
 }
 
 /// @nodoc
@@ -269,7 +270,7 @@ abstract class _$$_NoteDtoCopyWith<$Res> implements $NoteDtoCopyWith<$Res> {
       String body,
       int color,
       List<TodoItemDto> todos,
-      String timeStamp});
+      @TimestampConverter() String timeStamp});
 }
 
 /// @nodoc
@@ -322,7 +323,7 @@ class _$_NoteDto extends _NoteDto {
       required this.body,
       required this.color,
       required final List<TodoItemDto> todos,
-      required this.timeStamp})
+      @TimestampConverter() required this.timeStamp})
       : _todos = todos,
         super._();
 
@@ -344,6 +345,7 @@ class _$_NoteDto extends _NoteDto {
   }
 
   @override
+  @TimestampConverter()
   final String timeStamp;
 
   @override
@@ -392,7 +394,7 @@ abstract class _NoteDto extends NoteDto {
       required final String body,
       required final int color,
       required final List<TodoItemDto> todos,
-      required final String timeStamp}) = _$_NoteDto;
+      @TimestampConverter() required final String timeStamp}) = _$_NoteDto;
   const _NoteDto._() : super._();
 
   factory _NoteDto.fromJson(Map<String, dynamic> json) = _$_NoteDto.fromJson;
@@ -407,6 +409,7 @@ abstract class _NoteDto extends NoteDto {
   @override
   List<TodoItemDto> get todos;
   @override
+  @TimestampConverter()
   String get timeStamp;
   @override
   @JsonKey(ignore: true)
