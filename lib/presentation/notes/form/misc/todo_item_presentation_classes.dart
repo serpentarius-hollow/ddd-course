@@ -8,7 +8,7 @@ part 'todo_item_presentation_classes.freezed.dart';
 
 @freezed
 class TodoItemPrimitive with _$TodoItemPrimitive {
-  TodoItemPrimitive._();
+  const TodoItemPrimitive._();
 
   const factory TodoItemPrimitive({
     required UniqueId id,

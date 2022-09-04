@@ -1,9 +1,12 @@
 import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/auth/auth_bloc.dart';
 import '../../../application/auth/sign_in_form/sign_in_form_bloc.dart';
 import '../../loading/loading_screen.dart';
+import '../../routes/router.gr.dart';
 
 class SignInForm extends StatelessWidget {
   const SignInForm({super.key});
@@ -11,6 +14,7 @@ class SignInForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final signInFormBloc = context.read<SignInFormBloc>();
+    final authBloc = context.read<AuthBloc>();
 
     return BlocConsumer<SignInFormBloc, SignInFormState>(
       listener: (context, state) {
@@ -38,7 +42,8 @@ class SignInForm extends StatelessWidget {
               ).show(context);
             },
             (_) {
-              // TODO: Navigate to Home Page
+              context.router.replace(const NotesOverviewRoute());
+              authBloc.add(const AuthEvent.authCheckRequested());
             },
           ),
         );
