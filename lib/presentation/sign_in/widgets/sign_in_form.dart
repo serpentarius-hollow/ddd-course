@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/auth/sign_in_form/sign_in_form_bloc.dart';
+import '../../loading/loading_screen.dart';
 
 class SignInForm extends StatelessWidget {
   const SignInForm({super.key});
@@ -13,6 +14,15 @@ class SignInForm extends StatelessWidget {
 
     return BlocConsumer<SignInFormBloc, SignInFormState>(
       listener: (context, state) {
+        if (state.isLoading) {
+          LoadingScreen.instance().show(
+            context: context,
+            text: 'Loading...',
+          );
+        } else {
+          LoadingScreen.instance().hide();
+        }
+
         state.authFailureOrSuccess.fold(
           () => null,
           (either) => either.fold(
