@@ -1,4 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart'
+    as i;
 
 import 'failures.dart';
 
@@ -8,7 +10,9 @@ Either<ValueFailure<String>, String> validateEmailAddress(String input) {
   if (RegExp(emailRegex).hasMatch(input)) {
     return right(input);
   } else {
-    return left(ValueFailure.invalidEmail(failedValue: input));
+    return left(
+      ValueFailure.invalidEmail(failedValue: input),
+    );
   }
 }
 
@@ -16,6 +20,58 @@ Either<ValueFailure<String>, String> validatePassword(String input) {
   if (input.length >= 6) {
     return right(input);
   } else {
-    return left(ValueFailure.shortPassword(failedValue: input));
+    return left(
+      ValueFailure.shortPassword(failedValue: input),
+    );
+  }
+}
+
+Either<ValueFailure<String>, String> validateMaxStringLength(
+  String input,
+  int maxLength,
+) {
+  if (input.length <= maxLength) {
+    return right(input);
+  } else {
+    return left(
+      ValueFailure.exceedingLength(failedValue: input, max: maxLength),
+    );
+  }
+}
+
+Either<ValueFailure<String>, String> validateStringNotEmpty(
+  String input,
+) {
+  if (input.isNotEmpty) {
+    return right(input);
+  } else {
+    return left(
+      ValueFailure.empty(failedValue: input),
+    );
+  }
+}
+
+Either<ValueFailure<String>, String> validateSingleLine(
+  String input,
+) {
+  if (!input.contains('\n')) {
+    return right(input);
+  } else {
+    return left(
+      ValueFailure.multiline(failedValue: input),
+    );
+  }
+}
+
+Either<ValueFailure<i.IList<T>>, i.IList<T>> validateMaxListLength<T>(
+  i.IList<T> input,
+  int maxLength,
+) {
+  if (input.length <= maxLength) {
+    return right(input);
+  } else {
+    return left(
+      ValueFailure.listTooLong(failedValue: input, max: maxLength),
+    );
   }
 }
