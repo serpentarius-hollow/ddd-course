@@ -13,6 +13,10 @@ abstract class ValueObject<T> {
 
   bool get isValid => value.isRight();
 
+  Either<ValueFailure<dynamic>, Unit> get failureOrUnit {
+    return value.fold((f) => left(f), (_) => right(unit));
+  }
+
   /// Throws [UnexpectedValueError] containing the [ValueFailure]
   T get getOrCrash => value.fold(
         (f) => throw UnexpectedValueError(f),
