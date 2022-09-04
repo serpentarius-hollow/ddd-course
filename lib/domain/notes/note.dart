@@ -37,8 +37,8 @@ class Note with _$Note {
         // If we can't get the 0th element, the list is empty. In such a case, it's valid.
         .get(0, orElse: (_) => none())
         // Fold the option
-        .fold<Either<ValueFailure<dynamic>, dynamic>>(
-            () => right(unit), (a) => left(a));
+        .fold(
+            () => right<ValueFailure<dynamic>, dynamic>(unit), (a) => left(a));
 
     return body.failureOrUnit
         // This is the ListOfTodo VALUE OBJECT
