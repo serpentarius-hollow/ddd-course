@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../application/notes/watcher/notes_watcher_bloc.dart';
+import 'critical_failure_body.dart';
+import 'error_note_card.dart';
+import 'note_card.dart';
 
 class NotesOverviewBody extends StatelessWidget {
   const NotesOverviewBody({super.key});
@@ -16,9 +19,8 @@ class NotesOverviewBody extends StatelessWidget {
             child: CircularProgressIndicator(),
           ),
           failed: (state) {
-            return Container(
-              color: Colors.yellow,
-              height: 100,
+            return CriticalFailureBody(
+              failure: state.noteFailure,
             );
           },
           loaded: (state) {
@@ -27,15 +29,9 @@ class NotesOverviewBody extends StatelessWidget {
                 final note = state.notes.elementAt(index);
 
                 if (note.failureOption.isSome()) {
-                  return Container(
-                    color: Colors.red,
-                    height: 100,
-                  );
+                  return ErrorNoteCard(note: note);
                 } else {
-                  return Container(
-                    color: Colors.green,
-                    height: 100,
-                  );
+                  return NoteCard(note: note);
                 }
               },
               itemCount: state.notes.length,
