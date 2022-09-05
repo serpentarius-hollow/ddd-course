@@ -9,6 +9,7 @@ import '../../../application/notes/watcher/notes_watcher_bloc.dart';
 import '../../../injection.dart';
 import '../../routes/router.gr.dart';
 import 'widgets/notes_overview_body.dart';
+import 'widgets/notes_switch.dart';
 
 class NotesOverviewPage extends StatelessWidget {
   const NotesOverviewPage({super.key});
@@ -59,17 +60,15 @@ class NotesOverviewPage extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Notes'),
+            centerTitle: true,
             leading: IconButton(
               onPressed: () {
                 authBloc.add(const AuthEvent.signedOut());
               },
               icon: const Icon(Icons.exit_to_app),
             ),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.indeterminate_check_box),
-              )
+            actions: const [
+              NotesSwitch(),
             ],
           ),
           floatingActionButton: FloatingActionButton(
