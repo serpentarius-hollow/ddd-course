@@ -53,75 +53,78 @@ class SignInForm extends StatelessWidget {
           autovalidateMode: state.showErrorMessages
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
-          child: ListView(
+          child: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.email),
-                  label: Text('Email'),
-                ),
-                autocorrect: false,
-                onChanged: (value) =>
-                    signInFormBloc.add(SignInFormEvent.emailChanged(value)),
-                validator: (_) => signInFormBloc.state.emailAddress.value.fold(
-                  (f) => f.maybeMap(
-                    invalidEmail: (_) => 'Invalid Email',
-                    orElse: () => null,
+            child: Column(
+              children: [
+                TextFormField(
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.email),
+                    label: Text('Email'),
                   ),
-                  (_) => null,
-                ),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.lock),
-                  label: Text('Password'),
-                ),
-                autocorrect: false,
-                obscureText: true,
-                onChanged: (value) =>
-                    signInFormBloc.add(SignInFormEvent.passwordChanged(value)),
-                validator: (_) => signInFormBloc.state.password.value.fold(
-                  (f) => f.maybeMap(
-                    shortPassword: (_) => 'Short Password',
-                    orElse: () => null,
-                  ),
-                  (_) => null,
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () {
-                        signInFormBloc.add(const SignInFormEvent
-                            .signInWithEmailAndPasswordPressed());
-                      },
-                      child: const Text('SIGN IN'),
+                  autocorrect: false,
+                  onChanged: (value) =>
+                      signInFormBloc.add(SignInFormEvent.emailChanged(value)),
+                  validator: (_) =>
+                      signInFormBloc.state.emailAddress.value.fold(
+                    (f) => f.maybeMap(
+                      invalidEmail: (_) => 'Invalid Email',
+                      orElse: () => null,
                     ),
+                    (_) => null,
                   ),
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () {
-                        signInFormBloc.add(const SignInFormEvent
-                            .registerWithEmailAndPasswordPressed());
-                      },
-                      child: const Text('REGISTER'),
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.lock),
+                    label: Text('Password'),
+                  ),
+                  autocorrect: false,
+                  obscureText: true,
+                  onChanged: (value) => signInFormBloc
+                      .add(SignInFormEvent.passwordChanged(value)),
+                  validator: (_) => signInFormBloc.state.password.value.fold(
+                    (f) => f.maybeMap(
+                      shortPassword: (_) => 'Short Password',
+                      orElse: () => null,
                     ),
+                    (_) => null,
                   ),
-                ],
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  signInFormBloc
-                      .add(const SignInFormEvent.signInWithGooglePressed());
-                },
-                child: const Text('SIGN IN WITH GOOGLE'),
-              ),
-            ],
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          signInFormBloc.add(const SignInFormEvent
+                              .signInWithEmailAndPasswordPressed());
+                        },
+                        child: const Text('SIGN IN'),
+                      ),
+                    ),
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          signInFormBloc.add(const SignInFormEvent
+                              .registerWithEmailAndPasswordPressed());
+                        },
+                        child: const Text('REGISTER'),
+                      ),
+                    ),
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    signInFormBloc
+                        .add(const SignInFormEvent.signInWithGooglePressed());
+                  },
+                  child: const Text('SIGN IN WITH GOOGLE'),
+                ),
+              ],
+            ),
           ),
         );
       },

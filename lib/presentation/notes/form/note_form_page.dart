@@ -1,5 +1,6 @@
 import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:ddd_course/presentation/notes/form/widgets/note_body_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -53,29 +54,56 @@ class NoteFormPage extends StatelessWidget {
             },
           );
         },
-        child: Scaffold(
-          appBar: AppBar(
-            title: BlocBuilder<NotesFormBloc, NotesFormState>(
-              buildWhen: (previous, current) =>
-                  previous.isEditing != current.isEditing,
-              builder: (context, state) {
-                return Text(
-                  state.isEditing ? 'Edit a Note' : 'Create a Note',
-                );
-              },
-            ),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  context
-                      .read<NotesFormBloc>()
-                      .add(const NotesFormEvent.saved());
-                },
-                icon: const Icon(Icons.check),
-              )
-            ],
-          ),
+        child: const NoteFormScaffold(),
+      ),
+    );
+  }
+}
+
+class NoteFormScaffold extends StatelessWidget {
+  const NoteFormScaffold({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: BlocBuilder<NotesFormBloc, NotesFormState>(
+          buildWhen: (previous, current) =>
+              previous.isEditing != current.isEditing,
+          builder: (context, state) {
+            return Text(
+              state.isEditing ? 'Edit a Note' : 'Create a Note',
+            );
+          },
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<NotesFormBloc>().add(const NotesFormEvent.saved());
+            },
+            icon: const Icon(Icons.check),
+          )
+        ],
+      ),
+      body: BlocBuilder<NotesFormBloc, NotesFormState>(
+        buildWhen: (previous, current) =>
+            previous.showErrorMessages != current.showErrorMessages,
+        builder: (context, state) {
+          return Form(
+            autovalidateMode: state.showErrorMessages
+                ? AutovalidateMode.always
+                : AutovalidateMode.disabled,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const NoteBodyField(),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
