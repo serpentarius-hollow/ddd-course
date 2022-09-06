@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../application/notes/actor/notes_actor_bloc.dart';
 import '../../../../domain/notes/note.dart';
 import '../../../../domain/notes/todo_item.dart';
+import '../../../routes/router.gr.dart';
 
 class NoteCard extends StatelessWidget {
   final Note note;
@@ -21,7 +23,7 @@ class NoteCard extends StatelessWidget {
       color: note.color.getOrCrash,
       child: InkWell(
         onTap: () {
-          // TODO: Navigate to NoteFormPage
+          context.router.push(NoteFormRoute(editedNote: note));
         },
         onLongPress: () {
           _showDeletionDialog(context, noteActorBloc);
