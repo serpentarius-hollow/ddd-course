@@ -1,6 +1,5 @@
 import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:ddd_course/presentation/notes/form/widgets/note_body_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,6 +8,8 @@ import '../../../domain/notes/note.dart';
 import '../../../injection.dart';
 import '../../loading/loading_screen.dart';
 import '../../routes/router.gr.dart';
+import 'widgets/note_body_field.dart';
+import 'widgets/note_color_field.dart';
 
 class NoteFormPage extends StatelessWidget {
   final Note? editedNote;
@@ -99,6 +100,7 @@ class NoteFormScaffold extends StatelessWidget {
               child: Column(
                 children: [
                   const NoteBodyField(),
+                  const NoteColorField(),
                 ],
               ),
             ),
