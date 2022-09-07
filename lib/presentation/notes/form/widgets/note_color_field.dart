@@ -9,7 +9,6 @@ class NoteColorField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notesFormBloc = context.read<NotesFormBloc>();
     return BlocBuilder<NotesFormBloc, NotesFormState>(
       buildWhen: (previous, current) =>
           previous.note.color != current.note.color,
@@ -23,9 +22,12 @@ class NoteColorField extends StatelessWidget {
             itemBuilder: (context, index) {
               final itemColor = NoteColor.predefinedColors[index];
               return GestureDetector(
-                onTap: () => notesFormBloc.add(
-                  NotesFormEvent.colorChanged(itemColor),
-                ),
+                onTap: () {
+                  final notesFormBloc = context.read<NotesFormBloc>();
+                  notesFormBloc.add(
+                    NotesFormEvent.colorChanged(itemColor),
+                  );
+                },
                 child: Material(
                   color: itemColor,
                   elevation: 4,

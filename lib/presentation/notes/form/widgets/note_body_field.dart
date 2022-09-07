@@ -10,7 +10,6 @@ class NoteBodyField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notesFormBloc = context.read<NotesFormBloc>();
     final textEditingController = useTextEditingController();
 
     return BlocListener<NotesFormBloc, NotesFormState>(
@@ -32,16 +31,21 @@ class NoteBodyField extends HookWidget {
             border: OutlineInputBorder(),
             floatingLabelBehavior: FloatingLabelBehavior.always,
           ),
-          onChanged: (value) =>
-              notesFormBloc.add(NotesFormEvent.bodyChanged(value)),
-          validator: (_) => notesFormBloc.state.note.body.value.fold(
-            (f) => f.maybeMap(
-              empty: (_) => 'Cannot be empty',
-              exceedingLength: (f) => 'Exceeding length. Max: ${f.max}',
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
+          onChanged: (value) {
+            final notesFormBloc = context.read<NotesFormBloc>();
+            notesFormBloc.add(NotesFormEvent.bodyChanged(value));
+          },
+          validator: (_) {
+            final notesFormBloc = context.read<NotesFormBloc>();
+            return notesFormBloc.state.note.body.value.fold(
+              (f) => f.maybeMap(
+                empty: (_) => 'Cannot be empty',
+                exceedingLength: (f) => 'Exceeding length. Max: ${f.max}',
+                orElse: () => null,
+              ),
+              (_) => null,
+            );
+          },
         ),
       ),
     );

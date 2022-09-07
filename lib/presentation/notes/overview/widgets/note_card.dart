@@ -17,8 +17,6 @@ class NoteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final noteActorBloc = context.read<NotesActorBloc>();
-
     return Card(
       color: note.color.getOrCrash,
       child: InkWell(
@@ -26,6 +24,7 @@ class NoteCard extends StatelessWidget {
           context.router.push(NoteFormRoute(editedNote: note));
         },
         onLongPress: () {
+          final noteActorBloc = context.read<NotesActorBloc>();
           _showDeletionDialog(context, noteActorBloc);
         },
         child: Padding(

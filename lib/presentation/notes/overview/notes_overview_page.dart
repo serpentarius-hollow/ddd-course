@@ -16,7 +16,6 @@ class NotesOverviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = context.read<AuthBloc>();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -63,6 +62,7 @@ class NotesOverviewPage extends StatelessWidget {
             centerTitle: true,
             leading: IconButton(
               onPressed: () {
+                final authBloc = context.read<AuthBloc>();
                 authBloc.add(const AuthEvent.signedOut());
               },
               icon: const Icon(Icons.exit_to_app),
