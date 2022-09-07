@@ -1,6 +1,5 @@
 import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:ddd_course/presentation/notes/form/widgets/add_todo_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +10,10 @@ import '../../../injection.dart';
 import '../../loading/loading_screen.dart';
 import '../../routes/router.gr.dart';
 import 'misc/todo_item_presentation_classes.dart';
+import 'widgets/add_todo_tile.dart';
 import 'widgets/note_body_field.dart';
 import 'widgets/note_color_field.dart';
+import 'widgets/todo_list_field.dart';
 
 class NoteFormPage extends StatelessWidget {
   final Note? editedNote;
@@ -107,6 +108,7 @@ class NoteFormScaffold extends StatelessWidget {
                     NoteBodyField(),
                     NoteColorField(),
                     AddTodoTile(),
+                    TodoListField(),
                   ],
                 ),
               ),
